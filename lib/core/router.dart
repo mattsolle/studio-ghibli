@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import 'package:studioghibli/screens/list.dart';
+import 'package:studioghibli/screens/list/list.dart';
 
 final router = GoRouter(
   routes: [
