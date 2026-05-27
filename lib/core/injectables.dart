@@ -1,11 +1,18 @@
 import 'package:get_it/get_it.dart';
 import 'package:studioghibli/repository/movie_repository.dart';
+import 'package:studioghibli/screens/list/movie_list_bloc.dart';
 import 'package:studioghibli/services/api_service.dart';
 
-final GetIt getIt = GetIt.instance;
+// Dependency Injector
+final GetIt di = GetIt.instance;
 
 void configureDependencies() {
-  getIt.registerLazySingleton<MovieRepository>(
-    () => MovieRepository(apiService: getIt<ApiService>()),
-  );
+  di
+    ..registerLazySingleton<ApiService>(ApiService.new)
+    ..registerLazySingleton<MovieRepository>(
+      () => MovieRepository(apiService: di<ApiService>()),
+    )
+    ..registerLazySingleton<MovieBloc>(
+      () => MovieBloc(movieRepository: di<MovieRepository>()),
+    );
 }
