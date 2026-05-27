@@ -1,15 +1,15 @@
 import 'package:studioghibli/services/api_service.dart';
 import 'package:studioghibli/models/movie.dart';
 
-abstract interface class MovieListRepositoryInterface {
+abstract interface class MovieRepositoryInterface {
   Future<List<Movie>> getMovies();
   Future<Movie> getMovie(String id);
 }
 
-class MovieListRepository implements MovieListRepositoryInterface {
-  MovieListRepository({required this.apiService});
+class MovieRepository implements MovieRepositoryInterface {
+  MovieRepository({required this.apiService});
 
-  final ApiService apiService;
+  final ApiServiceInterface apiService;
 
   @override
   Future<List<Movie>> getMovies() async {
