@@ -6,5 +6,5 @@ import 'package:studioghibli/core/injectables.dart';
 void main() {
   // GetIt setup
   configureDependencies();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
