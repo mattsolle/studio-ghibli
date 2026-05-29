@@ -26,8 +26,14 @@ class ApiService implements ApiServiceInterface {
     try {
       final response = await client.get(_getAllMoviesUri);
       if (response.statusCode >= 200 && response.statusCode < 300) {
-        final dataList = jsonDecode(response.body) as List<dynamic>;
-        final data = dataList.cast<Map<String, dynamic>>();
+        if (response.body.trim().isEmpty) {
+          return [];
+        }
+        final json = jsonDecode(response.body);
+        if (json is! List<dynamic>) {
+          return [];
+        }
+        final data = json.cast<Map<String, dynamic>>();
         final movies = data.map(Movie.fromJson).toList();
         return movies;
       } else if (response.statusCode == 400) {
@@ -44,15 +50,18 @@ class ApiService implements ApiServiceInterface {
 
   @override
   Future<Movie?> getMovie(String id) async {
-    final client = http.Client();
-
     try {
-      // This isn't going to work and that's okay for now
       final response = await client.get(_getSpecificMovie(id));
-      if (response.statusCode >= 200 || response.statusCode < 300) {
-        final data = jsonDecode(response.body) as Map<String, dynamic>?;
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        if (response.body.trim().isEmpty) {
+          return null;
+        }
+        final json = jsonDecode(response.body);
+        if (json is! Map<String, dynamic>? || json!.isEmpty) {
+          return null;
+        }
         //final data = dataList.cast<Map<String, dynamic>>().first;
-        final movie = data == null ? null : Movie.fromJson(data);
+        final movie = Movie.fromJson(json);
         return movie;
       } else {
         throw const HttpException('Invalid response');
