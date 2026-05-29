@@ -3,7 +3,7 @@ import 'package:studioghibli/services/api_service.dart';
 
 abstract interface class MovieRepositoryInterface {
   Future<List<Movie>> getMovies();
-  Future<Movie> getMovie(String id);
+  Future<Movie?> getMovie(String id);
 }
 
 class MovieRepository implements MovieRepositoryInterface {
@@ -18,7 +18,7 @@ class MovieRepository implements MovieRepositoryInterface {
   }
 
   @override
-  Future<Movie> getMovie(String id) async {
+  Future<Movie?> getMovie(String id) async {
     if (id.trim().isEmpty) {
       throw ArgumentError.value(
         id,

@@ -7,7 +7,7 @@ import 'package:studioghibli/models/movie.dart';
 abstract interface class ApiServiceInterface {
   Future<List<Movie>> getMovies();
 
-  Future<Movie> getMovie(String id);
+  Future<Movie?> getMovie(String id);
 }
 
 class ApiService implements ApiServiceInterface {
@@ -43,16 +43,16 @@ class ApiService implements ApiServiceInterface {
   }
 
   @override
-  Future<Movie> getMovie(String id) async {
+  Future<Movie?> getMovie(String id) async {
     final client = http.Client();
 
     try {
       // This isn't going to work and that's okay for now
       final response = await client.get(_getSpecificMovie(id));
       if (response.statusCode >= 200 || response.statusCode < 300) {
-        final data = jsonDecode(response.body) as Map<String, dynamic>;
+        final data = jsonDecode(response.body) as Map<String, dynamic>?;
         //final data = dataList.cast<Map<String, dynamic>>().first;
-        final movie = Movie.fromJson(data);
+        final movie = data == null ? null : Movie.fromJson(data);
         return movie;
       } else {
         throw const HttpException('Invalid response');

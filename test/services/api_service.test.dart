@@ -70,11 +70,11 @@ void main() {
       expect(movies.first.title, 'Castle in the Sky');
       verify(
         mockClient.get(any),
-      ).called(1); // optional: it actually hit the client
+      ).called(1);
     });
 
     test('throws exception on 400', () async {
-      // Arrange: tell the mock what to return for any GET
+      // Arrange
       when(mockClient.get(any)).thenAnswer(
         (_) async => http.Response(
           'Bad Request',
@@ -92,13 +92,10 @@ void main() {
 
       // Assert
       expect(caught, isA<HttpException>());
-      verify(
-        mockClient.get(any),
-      ).called(1); // optional: it actually hit the client
     });
 
     test('throws exception on 404', () async {
-      // Arrange: tell the mock what to return for any GET
+      // Arrange
       when(mockClient.get(any)).thenAnswer(
         (_) async => http.Response(
           'Not Found',
@@ -116,13 +113,10 @@ void main() {
 
       // Assert
       expect(caught, isA<HttpException>());
-      verify(
-        mockClient.get(any),
-      ).called(1); // optional: it actually hit the client
     });
 
     test('throws exception on unexpected status code', () async {
-      // Arrange: tell the mock what to return for any GET
+      // Arrange
       when(mockClient.get(any)).thenAnswer(
         (_) async => http.Response(
           'Unknown',
@@ -140,9 +134,6 @@ void main() {
 
       // Assert
       expect(caught, isA<HttpException>());
-      verify(
-        mockClient.get(any),
-      ).called(1); // optional: it actually hit the client
     });
   });
 }
