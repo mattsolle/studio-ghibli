@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'package:go_router/go_router.dart';
-
 import 'package:studioghibli/core/injectables.dart';
 import 'package:studioghibli/screens/list/movie_list_bloc.dart';
 import 'package:studioghibli/screens/list/movie_list_event.dart';
@@ -17,17 +14,19 @@ class ListScreen extends StatelessWidget {
           di<MovieListBloc>()..add(const MovieListEventFetch()),
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: BlocBuilder<MovieListBloc, MovieListState>(
-          builder: (_, state) {
-            switch (state) {
-              case MovieListStateLoading():
-                return const ListScreenLoading();
-              case MovieListStateError():
-                return const Text('Oops something went wrong');
-              case MovieListStateLoaded():
-                return ListScreenLoaded(state: state);
-            }
-          },
+        body: Center(
+          child: BlocBuilder<MovieListBloc, MovieListState>(
+            builder: (_, state) {
+              switch (state) {
+                case MovieListStateLoading():
+                  return const ListScreenLoading();
+                case MovieListStateError():
+                  return const Text('Oops something went wrong');
+                case MovieListStateLoaded():
+                  return ListScreenLoaded(state: state);
+              }
+            },
+          ),
         ),
       ),
     );
@@ -72,7 +71,6 @@ class ListScreenLoaded extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 print(movie.id);
-                context.push('/movie/${movie.id}');
               },
               child: Card(
                 child: Padding(
@@ -111,6 +109,23 @@ class ListScreenLoaded extends StatelessWidget {
                         movie.description,
                         maxLines: 8,
                         overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: .center,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '${movie.releaseDate} | ${movie.director} | ${movie.producer}',
+                              maxLines: 2,
+                              softWrap: true,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

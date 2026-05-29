@@ -4,8 +4,8 @@ import 'package:studioghibli/repository/movie_repository.dart';
 import 'package:studioghibli/screens/list/movie_list_event.dart';
 import 'package:studioghibli/screens/list/movie_list_state.dart';
 
-class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
-  MovieListBloc({
+class MovieBloc extends Bloc<MovieListEvent, MovieListState> {
+  MovieBloc({
     required this.movieRepository,
   }) : super(
          const MovieListStateLoading(),

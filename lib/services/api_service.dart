@@ -45,8 +45,8 @@ class ApiService implements ApiServiceInterface {
       // This isn't going to work and that's okay for now
       final response = await client.get(_getSpecificMovie(id));
       if (response.statusCode >= 200 || response.statusCode < 300) {
-        final dataList = (jsonDecode(response.body) as List<dynamic>);
-        final data = dataList.cast<Map<String, dynamic>>().first;
+        final data = (jsonDecode(response.body) as Map<String, dynamic>);
+        //final data = dataList.cast<Map<String, dynamic>>().first;
         final movie = Movie.fromJson(data);
         return movie;
       } else {

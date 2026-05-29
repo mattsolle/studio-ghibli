@@ -50,8 +50,17 @@ class Movie {
   final String director;
   final String producer;
   final String releaseDate;
-  // Running Time, in minutes
+
+  /// Running Time, in minutes
   final String runningTime;
+
+  String get runningTimeFormatted {
+    final parsed = int.tryParse(runningTime);
+    final hours = parsed != null ? parsed ~/ 60 : 0;
+    final minutes = parsed != null ? parsed % 60 : 0;
+    return hours > 0 ? '${hours}hr ${minutes}m' : '${minutes}m';
+  }
+
   final String rtScore;
   final List<String> people;
   final List<String> species;

@@ -1,19 +1,19 @@
 import 'package:studioghibli/models/movie.dart';
 
-sealed class MovieState {
-  const MovieState();
+sealed class MovieListState {
+  const MovieListState();
 }
 
-final class MovieStateLoading extends MovieState {
-  const MovieStateLoading();
+final class MovieListStateLoading extends MovieListState {
+  const MovieListStateLoading();
 }
 
-final class MovieStateLoaded extends MovieState {
-  const MovieStateLoaded(this.movies);
+final class MovieListStateLoaded extends MovieListState {
+  const MovieListStateLoaded(this.movies);
 
   final List<Movie> movies;
 }
 
-final class MovieStateError extends MovieState {
-  const MovieStateError();
+final class MovieListStateError extends MovieListState {
+  const MovieListStateError();
 }
