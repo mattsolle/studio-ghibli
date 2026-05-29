@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-
 import 'package:studioghibli/models/movie.dart';
 
 abstract interface class ApiServiceInterface {
@@ -45,7 +44,7 @@ class ApiService implements ApiServiceInterface {
       // This isn't going to work and that's okay for now
       final response = await client.get(_getSpecificMovie(id));
       if (response.statusCode >= 200 || response.statusCode < 300) {
-        final data = (jsonDecode(response.body) as Map<String, dynamic>);
+        final data = jsonDecode(response.body) as Map<String, dynamic>;
         //final data = dataList.cast<Map<String, dynamic>>().first;
         final movie = Movie.fromJson(data);
         return movie;

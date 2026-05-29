@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:go_router/go_router.dart';
-
 import 'package:studioghibli/core/injectables.dart';
 import 'package:studioghibli/screens/detail/movie_detail_bloc.dart';
 import 'package:studioghibli/screens/detail/movie_detail_event.dart';
 import 'package:studioghibli/screens/detail/movie_detail_state.dart';
 
 class DetailScreen extends StatelessWidget {
-  final String movieId;
+  const DetailScreen({required this.movieId, super.key});
 
-  DetailScreen({required this.movieId});
+  final String movieId;
 
   @override
   Widget build(BuildContext context) {
@@ -79,71 +76,71 @@ class DetailScreenLoaded extends StatelessWidget {
     final movie = state.movie;
 
     return SingleChildScrollView(
-      child: GestureDetector(
-        onTap: () {
-          print(movie.id);
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: .start,
-            mainAxisAlignment: .start,
-            children: [
-              Text(
-                movie.title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: .start,
+          children: [
+            Text(
+              movie.title,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
               ),
-              Text(
-                '${movie.originalTitle} (${movie.originalTitleRomanised})',
-                maxLines: 2,
-                softWrap: true,
-                textAlign: .center,
-              ),
+            ),
+            Text(
+              '${movie.originalTitle} (${movie.originalTitleRomanised})',
+              maxLines: 2,
+              softWrap: true,
+              textAlign: .center,
+            ),
 
-              const SizedBox(height: 16),
-              Text(
-                movie.description,
-                maxLines: 8,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: .center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      '${movie.releaseDate} | ${movie.director} | ${movie.producer}',
-                      maxLines: 2,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+            const SizedBox(height: 16),
+            Text(
+              movie.description,
+              maxLines: 8,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: .center,
+              children: [
+                Expanded(
+                  child: Text(
+                    '${movie.releaseDate}'
+                    ' | '
+                    '${movie.director}'
+                    ' | '
+                    '${movie.producer}',
+                    maxLines: 2,
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: .center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      '${movie.runningTimeFormatted} | ${movie.rtScore} on Rotten Tomatoes',
-                      maxLines: 2,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: .center,
+              children: [
+                Expanded(
+                  child: Text(
+                    '${movie.runningTimeFormatted}'
+                    ' | '
+                    '${movie.rtScore} on Rotten Tomatoes',
+                    maxLines: 2,
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

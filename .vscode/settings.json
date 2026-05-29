@@ -1,6 +1,13 @@
 {
   "dart.flutterSdkPath": ".fvm/versions/3.44.0",
-  "cSpell.words": ["ghibliapi", "Romanised", "studioghibli", "vercel"],
+  "cSpell.words": [
+    "Ghibli",
+    "ghibliapi",
+    "injectables",
+    "Romanised",
+    "studioghibli",
+    "vercel"
+  ],
   "search.exclude": {
     "**/.fvm": true
   },

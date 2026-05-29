@@ -1,5 +1,5 @@
-import 'package:studioghibli/services/api_service.dart';
 import 'package:studioghibli/models/movie.dart';
+import 'package:studioghibli/services/api_service.dart';
 
 abstract interface class MovieRepositoryInterface {
   Future<List<Movie>> getMovies();

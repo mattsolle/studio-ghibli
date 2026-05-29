@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:go_router/go_router.dart';
-
 import 'package:studioghibli/core/injectables.dart';
 import 'package:studioghibli/screens/list/movie_list_bloc.dart';
 import 'package:studioghibli/screens/list/movie_list_event.dart';
 import 'package:studioghibli/screens/list/movie_list_state.dart';
 
 class ListScreen extends StatelessWidget {
+  const ListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -70,9 +69,8 @@ class ListScreenLoaded extends StatelessWidget {
             final movie = state.movies[index];
 
             return GestureDetector(
-              onTap: () {
-                print(movie.id);
-                context.push('/movie/${movie.id}');
+              onTap: () async {
+                await context.push('/movie/${movie.id}');
               },
               child: Card(
                 child: Padding(
@@ -97,7 +95,8 @@ class ListScreenLoaded extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              '${movie.originalTitle} (${movie.originalTitleRomanised})',
+                              '${movie.originalTitle}'
+                              ' (${movie.originalTitleRomanised})',
                               maxLines: 2,
                               softWrap: true,
                               textAlign: .center,
