@@ -11,6 +11,10 @@ abstract interface class ApiServiceInterface {
 }
 
 class ApiService implements ApiServiceInterface {
+  ApiService({required this.client});
+
+  http.Client client;
+
   static const _baseUrl = 'ghibliapi.vercel.app';
   static const _films = '/films';
 
@@ -19,17 +23,19 @@ class ApiService implements ApiServiceInterface {
 
   @override
   Future<List<Movie>> getMovies() async {
-    final client = http.Client();
-
     try {
       final response = await client.get(_getAllMoviesUri);
-      if (response.statusCode >= 200 || response.statusCode < 300) {
+      if (response.statusCode >= 200 && response.statusCode < 300) {
         final dataList = jsonDecode(response.body) as List<dynamic>;
         final data = dataList.cast<Map<String, dynamic>>();
         final movies = data.map(Movie.fromJson).toList();
         return movies;
+      } else if (response.statusCode == 400) {
+        throw const HttpException('Bad Request');
+      } else if (response.statusCode == 404) {
+        throw const HttpException('Not Found');
       } else {
-        throw const HttpException('Invalid response');
+        throw const HttpException('Unknown Error');
       }
     } finally {
       client.close();
