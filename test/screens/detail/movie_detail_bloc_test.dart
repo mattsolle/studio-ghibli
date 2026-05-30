@@ -65,7 +65,10 @@ void main() {
         return movieDetailBloc;
       },
       act: (bloc) => bloc..add(const MovieDetailEventFetch(movieId: '123')),
-      expect: () => [isA<MovieDetailStateLoading>(), isA<MovieDetailStateLoaded>()],
+      expect: () => [
+        isA<MovieDetailStateLoading>(),
+        isA<MovieDetailStateLoaded>(),
+      ],
     );
 
     blocTest(
@@ -74,8 +77,10 @@ void main() {
         return movieDetailBloc;
       },
       act: (bloc) => bloc..add(const MovieDetailEventFetch(movieId: '')),
-      skip: 1,
-      expect: () => [isA<MovieDetailStateError>()],
+      expect: () => [
+        isA<MovieDetailStateLoading>(),
+        isA<MovieDetailStateError>(),
+      ],
     );
 
     blocTest(
@@ -87,8 +92,10 @@ void main() {
         return movieDetailBloc;
       },
       act: (bloc) => bloc..add(const MovieDetailEventFetch(movieId: '123')),
-      skip: 1,
-      expect: () => [isA<MovieDetailStateError>()],
+      expect: () => [
+        isA<MovieDetailStateLoading>(),
+        isA<MovieDetailStateError>(),
+      ],
     );
   });
 }
