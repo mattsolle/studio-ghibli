@@ -10,8 +10,8 @@ final GetIt di = GetIt.instance;
 
 void configureDependencies() {
   di
-    ..registerSingleton<http.Client>(
-      http.Client(),
+    ..registerLazySingleton<http.Client>(
+      http.Client.new,
     )
     ..registerLazySingleton<ApiService>(
       () => ApiService(

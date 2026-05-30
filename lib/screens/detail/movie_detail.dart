@@ -6,11 +6,10 @@ import 'package:studioghibli/screens/detail/movie_detail_bloc.dart';
 import 'package:studioghibli/screens/detail/movie_detail_event.dart';
 import 'package:studioghibli/screens/detail/movie_detail_state.dart';
 
-class DetailScreen extends StatelessWidget {
-  const DetailScreen({required this.movieId, super.key});
+class DetailScreenProvider extends StatelessWidget {
+  const DetailScreenProvider({required this.movieId, super.key});
 
   final String movieId;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -18,31 +17,44 @@ class DetailScreen extends StatelessWidget {
         ..add(
           MovieDetailEventFetch(movieId: movieId),
         ),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        appBar: AppBar(
-          title: const Text('Studio Ghibli'),
-          leading: GestureDetector(
-            onTap: context.pop,
-            child: const Center(
-              child: Text(
-                'Back',
-              ),
+      child: DetailScreen(
+        movieId: movieId,
+      ),
+    );
+  }
+}
+
+class DetailScreen extends StatelessWidget {
+  const DetailScreen({required this.movieId, super.key});
+
+  final String movieId;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        title: const Text('Studio Ghibli'),
+        leading: GestureDetector(
+          onTap: context.pop,
+          child: const Center(
+            child: Text(
+              'Back',
             ),
           ),
         ),
-        body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
-          builder: (_, state) {
-            switch (state) {
-              case MovieDetailStateLoading():
-                return const DetailScreenLoading();
-              case MovieDetailStateError():
-                return const Text('Oops something went wrong');
-              case MovieDetailStateLoaded():
-                return DetailScreenLoaded(state: state);
-            }
-          },
-        ),
+      ),
+      body: BlocBuilder<MovieDetailBloc, MovieDetailState>(
+        builder: (_, state) {
+          switch (state) {
+            case MovieDetailStateLoading():
+              return const DetailScreenLoading();
+            case MovieDetailStateError():
+              return const Text('Oops something went wrong');
+            case MovieDetailStateLoaded():
+              return DetailScreenLoaded(state: state);
+          }
+        },
       ),
     );
   }

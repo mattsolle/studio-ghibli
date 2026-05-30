@@ -7,11 +7,11 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/movie',
-      builder: (context, state) => const ListScreen(),
+      builder: (context, state) => const ListScreenProvider(),
     ),
     GoRoute(
       path: '/movie/:movieId',
-      builder: (context, state) => DetailScreen(
+      builder: (context, state) => DetailScreenProvider(
         movieId: state.pathParameters['movieId'] ?? '',
       ),
     ),

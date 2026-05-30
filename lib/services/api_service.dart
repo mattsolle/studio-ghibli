@@ -43,15 +43,16 @@ class ApiService implements ApiServiceInterface {
       } else {
         throw const HttpException('Unknown Error');
       }
-    } finally {
-      client.close();
+    } on Exception catch (_) {
+      throw const HttpException('Unknown Error');
     }
   }
 
   @override
   Future<Movie?> getMovie(String id) async {
     try {
-      final response = await client.get(_getSpecificMovie(id));
+      final url = _getSpecificMovie(id);
+      final response = await client.get(url);
       if (response.statusCode >= 200 && response.statusCode < 300) {
         if (response.body.trim().isEmpty) {
           return null;
@@ -66,8 +67,8 @@ class ApiService implements ApiServiceInterface {
       } else {
         throw const HttpException('Invalid response');
       }
-    } finally {
-      client.close();
+    } on Exception catch (_) {
+      throw const HttpException('Unknown Error');
     }
   }
 }

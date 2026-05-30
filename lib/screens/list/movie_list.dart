@@ -6,28 +6,37 @@ import 'package:studioghibli/screens/list/movie_list_bloc.dart';
 import 'package:studioghibli/screens/list/movie_list_event.dart';
 import 'package:studioghibli/screens/list/movie_list_state.dart';
 
-class ListScreen extends StatelessWidget {
-  const ListScreen({super.key});
+class ListScreenProvider extends StatelessWidget {
+  const ListScreenProvider({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
           di<MovieListBloc>()..add(const MovieListEventFetch()),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: BlocBuilder<MovieListBloc, MovieListState>(
-          builder: (_, state) {
-            switch (state) {
-              case MovieListStateLoading():
-                return const ListScreenLoading();
-              case MovieListStateError():
-                return const Text('Oops something went wrong');
-              case MovieListStateLoaded():
-                return ListScreenLoaded(state: state);
-            }
-          },
-        ),
+      child: const ListScreen(),
+    );
+  }
+}
+
+class ListScreen extends StatelessWidget {
+  const ListScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: BlocBuilder<MovieListBloc, MovieListState>(
+        builder: (_, state) {
+          switch (state) {
+            case MovieListStateLoading():
+              return const ListScreenLoading();
+            case MovieListStateError():
+              return const ListScreenError();
+            case MovieListStateLoaded():
+              return ListScreenLoaded(state: state);
+          }
+        },
       ),
     );
   }
