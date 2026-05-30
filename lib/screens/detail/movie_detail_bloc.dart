@@ -10,6 +10,8 @@ class MovieDetailBloc extends Bloc<MovieDetailEvent, MovieDetailState> {
          const MovieDetailStateLoading(),
        ) {
     on<MovieDetailEventFetch>((event, emit) async {
+      // Lets load right away while we fetch data and handle errors
+      emit(const MovieDetailStateLoading());
       try {
         final movie = await movieRepository.getMovie(event.movieId);
         if (movie == null) {
